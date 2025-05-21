@@ -23,4 +23,4 @@ class StudentService {
     }
 }
 
-moodule.exports = new StudentService();
+module.exports = new StudentService();
