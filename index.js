@@ -6,6 +6,7 @@ const process = require('process');
 
 const studentRoutes = require('./routes/studentRoutes');
 const accessRoutes = require('./routes/accessRouter');
+const officialsRoutes = require('./routes/officialsRoutes');
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 app.use('/student', studentRoutes);
 app.use('/access', accessRoutes);
+app.use('/officials', officialsRoutes);
 
 
 
