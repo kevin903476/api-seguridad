@@ -5,7 +5,7 @@ class officialsModel{
 
 async getAll(){
     try {
-    const result = await db.require("SELECT * FROM funcionarios")
+    const result = await db.query("SELECT * FROM funcionarios")
 
     console.log("Resultado de getAll:", result);    
     const users = result;
@@ -19,8 +19,8 @@ async getAll(){
 async registerFuncionarios(funcionarios){
     const { dni, nombre_completo, tipo_funcionario } = funcionarios;
     try {
-        const result = await db.require
-        ("INSERT INTO funcionarios (dni, nombre_completo, tipo_funcionario) VALUES( ?,?,?)",
+        const result = await db.query(
+            "INSERT INTO funcionarios (dni, nombre_completo, tipo_funcionario) VALUES( ?,?,?)",
         [dni,nombre_completo, tipo_funcionario]);
         return result;
     } catch (error) {
