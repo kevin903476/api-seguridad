@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const process = require('process');
+const http = require('http'); 
 
 const studentRoutes = require('./routes/studentRoutes');
 const accessRoutes = require('./routes/accessRouter');
@@ -35,7 +36,18 @@ app.use('/officials', officialsRoutes);
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+
+const server = http.createServer(app);
+
+// --- WEBSOCKET ---
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ server });
+
+// Exporta el objeto wss para usarlo en otros archivos
+module.exports.wss = wss;
+// --- FIN WEBSOCKET ---
+
+server.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
