@@ -1,6 +1,7 @@
 //@ts-check
 const AccessService = require("../services/accessService");
-const { wss } = require("../index");
+const { getWSS } = require('../websocket');
+
 
 const getAllAccess = async (req, res) => {
   try {
@@ -59,19 +60,18 @@ async function registerAccess(req, res) {
   try {
     const result = await AccessService.registerAccess(dni);
 
-    // Notifica a todos los clientes WebSocket que hubo un nuevo acceso
+    const wss = getWSS();
     if (wss) {
       console.log("Clientes WebSocket conectados:", wss.clients.size);
       wss.clients.forEach(client => {
-        if (client.readyState === 1) { // 1 = OPEN
+        if (client.readyState === 1) {
           console.log("Enviando mensaje a cliente WebSocket");
-
           client.send(JSON.stringify({ type: "updateTodayAccess" }));
         }
       });
+    } else {
+      console.warn("WebSocket server no inicializado");
     }
-    console.log("Mensaje enviado a clientes WebSocket");
-    console.log("Clientes WebSocket conectados:", wss.clients.size);
 
     return res.status(200).json({
       success: true,

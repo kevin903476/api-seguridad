@@ -38,14 +38,8 @@ app.use('/officials', officialsRoutes);
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer(app);
-
-// --- WEBSOCKET ---
-const WebSocket = require('ws');
-const wss = new WebSocket.Server({ server, path: "/ws" });
-
-// Exporta el objeto wss para usarlo en otros archivos
-module.exports.wss = wss;
-// --- FIN WEBSOCKET ---
+const { setWSS } = require('./websocket');
+setWSS(server); // inicializa el WebSocket
 
 server.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
