@@ -63,6 +63,8 @@ async function registerAccess(req, res) {
     if (wss) {
       wss.clients.forEach(client => {
         if (client.readyState === 1) { // 1 = OPEN
+          console.log("Enviando mensaje a cliente WebSocket");
+          
           client.send(JSON.stringify({ type: "updateTodayAccess" }));
         }
       });
