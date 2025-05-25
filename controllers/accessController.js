@@ -71,6 +71,8 @@ async function registerAccess(req, res) {
       });
     }
     console.log("Mensaje enviado a clientes WebSocket");
+    console.log("Clientes WebSocket conectados:", wss.clients.size);
+
     return res.status(200).json({
       success: true,
       message: "Acceso registrado correctamente",
