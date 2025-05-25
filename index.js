@@ -41,7 +41,7 @@ const server = http.createServer(app);
 
 // --- WEBSOCKET ---
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server, path: "/ws" });
 
 // Exporta el objeto wss para usarlo en otros archivos
 module.exports.wss = wss;
