@@ -61,6 +61,7 @@ async function registerAccess(req, res) {
 
     // Notifica a todos los clientes WebSocket que hubo un nuevo acceso
     if (wss) {
+      console.log("Clientes WebSocket conectados:", wss.clients.size);
       wss.clients.forEach(client => {
         if (client.readyState === 1) { // 1 = OPEN
           console.log("Enviando mensaje a cliente WebSocket");
