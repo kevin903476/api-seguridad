@@ -16,17 +16,18 @@ async getAll(){
     }
 }
 
-async registerFuncionarios(funcionarios){
-    const { dni, nombre_completo, tipo_funcionario } = funcionarios;
+async registerFuncionarios(funcionario) {
+    const { dni, nombre_completo, estado, foto_url, puesto_id } = funcionario;
     try {
         const result = await db.query(
-            "INSERT INTO funcionarios (dni, nombre_completo, tipo_funcionario) VALUES( ?,?,?)",
-        [dni,nombre_completo, tipo_funcionario]);
+            "CALL registrar_funcionario(?, ?, ?, ?, ?)",
+
+        [dni, nombre_completo, estado, foto_url, puesto_id]);
         return result;
     } catch (error) {
-      console.error("Error in registerFuncionarios:", error);
-      throw error;
+        console.error("Error in registerFuncionarios:", error);
+        throw error;
     }
- }
+}
 }
 module.exports = new officialsModel();
