@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 
 app.use('/student', studentRoutes);
 app.use('/access', accessRoutes);
-app.use('/officials', officialsRoutes);
+app.use('/official', officialsRoutes);
 
 
 
