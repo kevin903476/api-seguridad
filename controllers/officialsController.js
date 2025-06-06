@@ -20,6 +20,9 @@ const getAllOfficials = async (req, res) => {
 };
 
 const registerOfficial = async (req, res) => {
+  console.log("BODY:", req.body);
+  console.log("FILE:", req.file);
+
   const { dni, nombre_completo, estado, puesto_id } = req.body;
   let foto_url = null;
 
@@ -49,7 +52,7 @@ const registerOfficial = async (req, res) => {
     }
 
     // Registro del funcionario (con o sin imagen)
-    const result = await officialService.registerOfficials({
+    const result = await officialService.registerOfficial({
       dni,
       nombre_completo,
       estado,
@@ -63,7 +66,7 @@ const registerOfficial = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.error("Error en registerOfficials:", error);
+    console.error("Error en registerOfficial:", error);
     return res.status(500).json({
       success: false,
       message: "Error al registrar funcionarios",
