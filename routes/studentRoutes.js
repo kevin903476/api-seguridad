@@ -2,8 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const studentController = require('../controllers/studentController');
+const upload = require("../middleware/fileValidator");
+
 
 router.get('/getStudent', studentController.getAllStudents);
-router.post('/registerStudent', studentController.registerStudent);
+router.post("/register", upload.single("foto"), studentController.registerStudent);
 
 module.exports = router;

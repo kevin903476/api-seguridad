@@ -20,13 +20,44 @@ const getAllStudents = async (req, res) => {
 };
 
 const registerStudent = async (req, res) => {
-  const { dni, nombre_completo, carrera } = req.body;
+  const { dni, nombre_completo, estado, carrera_id } = req.body;
+
+  let foto_url = null;
+
   try {
+    // Si hay archivo, subir a Cloudinary
+    if (req.file) {
+      const streamUpload = () => {
+        return new Promise((resolve, reject) => {
+          const stream = cloudinary.uploader.upload_stream(
+            {
+              folder: "estudiantes",
+              resource_type: "image",
+            },
+            (error, result) => {
+              if (result) {
+                resolve(result.secure_url);
+              } else {
+                reject(error);
+              }
+            }
+          );
+          streamifier.createReadStream(req.file.buffer).pipe(stream);
+        });
+      };
+
+      foto_url = await streamUpload(); // URL de la imagen
+    }
+
+    // Registro del estudiante (con o sin imagen)
     const result = await studentService.registerStudent({
       dni,
       nombre_completo,
-      carrera,
+      estado,
+      carrera_id,
+      foto_url,
     });
+
     return res.status(200).json({
       success: true,
       message: "Estudiante registrado correctamente",

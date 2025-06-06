@@ -17,11 +17,11 @@ class studentModel {
   }
 
   async registerEstudiante(estudiante) {
-    const { dni, nombre_completo, carrera } = estudiante;
+    const { dni, nombre_completo, estado, foto_url, carrera_id } = estudiante;
     try {
       const result = await db.query(
-        "INSERT INTO estudiante (dni, nombre_completo, carrera) VALUES (?, ?, ?)",
-        [dni, nombre_completo, carrera]
+        "CALL registrar_estudiante(?, ?, ?, ?, ?)",
+        [dni, nombre_completo, estado, foto_url, carrera_id]
       );
       return result;
     } catch (error) {
