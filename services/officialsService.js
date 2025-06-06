@@ -13,7 +13,7 @@ class officialService{
         }
     }
 
-    async registerOfficials(official){
+    async registerOfficial(official){
         try {
             const result = await officialsModel.registerOfficial(official);
             return result;
@@ -22,7 +22,7 @@ class officialService{
             throw error;
         }
     }
-    async updateOficcial(official){
+    async updateOfficial(official){
         try {
             const result = await officialsModel.updateOfficial(official);
             return result;
