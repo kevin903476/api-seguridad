@@ -15,7 +15,16 @@ class officialService{
 
     async registerOfficials(official){
         try {
-            const result = await officialsModel.registerFuncionarios(official);
+            const result = await officialsModel.registerOfficial(official);
+            return result;
+        } catch (error) {
+            console.error("Error en registerOfficial:", error);
+            throw error;
+        }
+    }
+    async updateOficcial(official){
+        try {
+            const result = await officialsModel.updateOfficial(official);
             return result;
         } catch (error) {
             console.error("Error en registerOfficial:", error);

@@ -1,5 +1,6 @@
 const officialService = require("../services/officialsService");
-
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
 
 const getAllOfficials = async (req, res) => {
   try {
@@ -70,7 +71,32 @@ const registerOfficial = async (req, res) => {
   }
 };
 
+const updateOfficial = async (req, res) => {
+  const { persona_id, estado, puesto_id } = req.body;
+
+  try {
+    const result = await officialService.updateOfficial({
+      persona_id,
+      estado,
+      puesto_id,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Funcionario actualizado correctamente",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error en updateOfficial:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error al actualizar funcionario",
+    });
+  }
+};
+
 module.exports = {
   getAllOfficials,
   registerOfficial,
+  updateOfficial,
 };

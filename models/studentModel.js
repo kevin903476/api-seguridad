@@ -16,7 +16,7 @@ class studentModel {
     }
   }
 
-  async registerEstudiante(estudiante) {
+  async registerStudent(estudiante) {
     const { dni, nombre_completo, estado, foto_url, carrera_id } = estudiante;
     try {
       const result = await db.query(
@@ -29,5 +29,20 @@ class studentModel {
       throw error;
     }
   }
+
+  async updateStudent(estudiante) {
+    const { persona_id, estado, carrera_id } = estudiante;
+    try {
+      const result = await db.query(
+        "CALL actualizar_estudiante(?, ?, ?)",
+        [persona_id, estado, carrera_id]
+      );
+      return result;
+    } catch (error) {
+      console.error("Error en updateStudent:", error);
+      throw error;
+    }
+  }
 }
+
 module.exports = new studentModel();

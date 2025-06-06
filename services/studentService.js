@@ -14,7 +14,16 @@ class StudentService {
     }
     async registerStudent(student) {
         try {
-            const result = await studentModel.registerEstudiante(student);
+            const result = await studentModel.registerStudent(student);
+            return result;
+        } catch (error) {
+            console.error("Error en registerStudent:", error);
+            throw error;
+        }
+    }
+    async updateStudent(student) {
+        try {
+            const result = await studentModel.updateStudent(student);
             return result;
         } catch (error) {
             console.error("Error en registerStudent:", error);

@@ -7,5 +7,5 @@ const upload = require("../middleware/fileValidator");
 
 router.get('/getStudent', studentController.getAllStudents);
 router.post("/register", upload.single("foto"), studentController.registerStudent);
-
+router.put('/updateStudent', studentController.updateStudent);
 module.exports = router;

@@ -4,8 +4,6 @@ const studentService = require("../services/studentService");
 const cloudinary = require("../config/cloudinary");
 const streamifier = require("streamifier");
 
-
-
 const getAllStudents = async (req, res) => {
   try {
     const result = await studentService.getAllStudents();
@@ -75,8 +73,32 @@ const registerStudent = async (req, res) => {
     });
   }
 };
+const updateStudent = async (req, res) => {
+  const { persona_id, estado, carrera_id } = req.body;
+
+  try {
+    const result = await studentService.updateStudent({
+      persona_id,
+      estado,
+      carrera_id,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Estudiante actualizado correctamente",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error en updateStudent:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error al actualizar estudiante",
+    });
+  }
+};
 
 module.exports = {
   getAllStudents,
   registerStudent,
+  updateStudent,
 };
