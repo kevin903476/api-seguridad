@@ -1,6 +1,8 @@
 //ts-check
 
 const studentService = require("../services/studentService");
+const cloudinary = require("../config/cloudinary");
+
 
 const getAllStudents = async (req, res) => {
   try {
