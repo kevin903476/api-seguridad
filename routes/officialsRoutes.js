@@ -3,7 +3,7 @@ const router = express.Router();
 const officialsController = require('../controllers/officialsController');
 
 router.get('/getOfficials', officialsController.getAllOfficials);
-router.post('/registerOfficial', officialsController.registerOfficial);
-router.put('/updateOfficial', officialsController.updateOfficial);
+router.post('/register', officialsController.registerOfficial);
+router.put('/update', officialsController.updateOfficial);
 
 module.exports = router;
