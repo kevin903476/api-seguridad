@@ -25,6 +25,16 @@ class accessModel {
       throw error;
     }
   }
+    async getWeekAccess() {
+    try {
+      const result = await db.query("SELECT * FROM vista_registros_acceso_semana_actual");
+      console.log("Resultado de getWeekAccess:", result);
+      return result;
+    } catch (error) {
+      console.error("Error en getWeekAccess:", error);
+      throw error;
+    }
+  }
   async getAccessByDni(dni) {
     try {
       const result = await db.query("CALL obtener_accesos_por_dni(?);", [dni]);

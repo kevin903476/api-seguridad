@@ -36,6 +36,22 @@ const getTodayAccess = async (req, res) => {
     });
   }
 };
+const getWeekAccess = async (req, res) => {
+  try {
+    const result = await AccessService.getWeekAccess();
+    return res.status(200).json({
+      success: true,
+      message: "Accesos de la semana obtenidos correctamente",
+      data: result,
+    });
+  } catch (error) {
+    console.error("Error en getTodayAccess:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener accesos de la semana",
+    });
+  }
+};
 
 async function getAccessByDni(req, res) {
   const { dni } = req.body;
@@ -88,5 +104,5 @@ async function registerAccess(req, res) {
 }
 
 module.exports = {
-  getAllAccess, getTodayAccess, getAccessByDni, registerAccess
+  getAllAccess, getTodayAccess, getAccessByDni, registerAccess,getWeekAccess
 };

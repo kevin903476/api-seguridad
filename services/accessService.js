@@ -21,6 +21,16 @@ class AccessService {
       throw error;
     }
   }
+    async getWeekAccess() {
+    try {
+      const result = await accessModel.getWeekAccess();
+      return result;
+    } catch (error) {
+      console.error("Error en getWeekAccess:", error);
+      throw error;
+    }
+  }
+
 
   async getAccessByDni(dni) {
     try {
