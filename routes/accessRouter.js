@@ -8,5 +8,5 @@ router.get('/getTodayAccess', accessController.getTodayAccess);
 router.get('/getWeekAccess', accessController.getWeekAccess);
 router.post('/getAccessByDni', accessController.getAccessByDni);
 router.post('/registerAccess', accessController.registerAccess);
-
+router.get('/getAccessByDate', accessController.getAccessByDate);
 module.exports = router;

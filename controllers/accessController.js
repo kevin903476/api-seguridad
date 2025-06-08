@@ -103,6 +103,34 @@ async function registerAccess(req, res) {
   }
 }
 
+
+async function getAccessByDate(req, res) {
+  const { fecha } = req.query;
+  
+  if (!fecha) {
+    return res.status(400).json({
+      success: false,
+      message: "El parámetro 'fecha' es requerido"
+    });
+  }
+
+  try {
+    const result = await AccessService.getAccessByDate(fecha);
+    return res.status(200).json({
+      success: true,
+      message: "Accesos por fecha obtenidos correctamente",
+      data: result
+    });
+  } catch (error) {
+    console.error("Error en getAccessByDate:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error al obtener accesos por fecha"
+    });
+  }
+};
+
+
 module.exports = {
-  getAllAccess, getTodayAccess, getAccessByDni, registerAccess,getWeekAccess
+  getAllAccess, getTodayAccess, getAccessByDni, registerAccess,getWeekAccess,getAccessByDate
 };

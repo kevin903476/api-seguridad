@@ -55,5 +55,37 @@ class accessModel {
       throw error;
     }
   }
+async getAccessByDate(fecha) {
+    try {
+      // Validación de fecha
+      if (!fecha || !/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+        throw new Error('Formato de fecha inválido. Use YYYY-MM-DD');
+      }
+
+      const sql = `
+        SELECT 
+          DATE(r.fecha_hora_acceso) as fecha,
+          COUNT(DISTINCT r.id_estudiante) as estudiantes,
+          COUNT(DISTINCT r.id_funcionario) as funcionarios
+        FROM registros_acceso r
+        WHERE DATE(r.fecha_hora_acceso) = ?
+        GROUP BY DATE(r.fecha_hora_acceso)`;
+      
+      console.log('Ejecutando query:', sql, [fecha]);
+      
+      const result = await db.query(sql, [fecha]);
+
+      return result.length > 0 ? result[0] : {
+        fecha: fecha,
+        estudiantes: 0,
+        funcionarios: 0
+      };
+    } catch (error) {
+      console.error('Error en getAccessByDate:', error.message);
+      throw error;
+    }
+  }
+
+
 }
 module.exports = new accessModel();

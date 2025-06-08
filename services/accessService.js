@@ -50,5 +50,14 @@ class AccessService {
         throw error;
         }
     }
+    async getAccessByDate(fecha) {
+  try {
+    const result = await accessModel.getAccessByDate(fecha);
+    return result;
+  } catch (error) {
+    console.error("Error en getAccessByDate:", error);
+    throw error;
+  }
+}
 }
 module.exports = new AccessService();
